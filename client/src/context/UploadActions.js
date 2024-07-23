@@ -1,13 +1,9 @@
 
-export const uploadImage = async (dispatch, userData) => {
-
+export const uploadImage = async (dispatch, formData) => {
     try {
         const response = await fetch("/upload-image", {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json', // Set Content-Type header
-            },
-            body: JSON.stringify(userData),
+            body: formData,
         });
 
         const data = await response.json();
@@ -16,11 +12,9 @@ export const uploadImage = async (dispatch, userData) => {
             dispatch({ type: 'SET_IMAGE', payload: data });
         }
 
-        return data
-
     } catch (error) {
 
-        console.error("Error registering user:", error);
+        console.error("Error generating PDF user:", error);
 
         return null
 
