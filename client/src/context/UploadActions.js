@@ -9,12 +9,17 @@ export const uploadImage = async (dispatch, formData) => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
-        console.log('Response data:', data);
+        // Get the response as a Blob (binary data)
+        const blob = await response.blob();
 
-        if (data) {
-            dispatch({ type: 'SET_IMAGE', payload: data });
-        }
+        // Create a URL for the Blob and trigger a download
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'generated.pdf'; // Filename for the downloaded PDF
+        link.click();
+
+        // Clean up the URL object
+        window.URL.revokeObjectURL(link.href);
 
     } catch (error) {
         console.error("Error generating PDF user:", error);
