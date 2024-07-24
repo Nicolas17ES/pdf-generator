@@ -16,14 +16,22 @@ const TextArea = ({ value, onChange, maxLength}) => {
 
     return (
 
-        <textarea
-            value={value}
-            onChange={handleChange}
-            placeholder="Enter your text"
-            name="message"
-            maxLength={maxLength}
-            required
-        />
+        <>
+
+            <label htmlFor="textarea" className="upload-label">
+                1) Add your text
+            </label>
+
+            <textarea
+                className="textarea"
+                value={value}
+                onChange={handleChange}
+                placeholder="Text goes here..."
+                name="message"
+                maxLength={maxLength}
+                required
+            />
+        </>
         
     );
 };

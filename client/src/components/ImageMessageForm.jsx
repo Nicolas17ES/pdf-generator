@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import  ModalPortal from './shared/ModalPortal'
 import PreviewButton from './shared/PreviewButton'
 import TextArea from './shared/TextArea'
+import { IoIosSend } from "react-icons/io";
+
 
 function ImageMessageForm() {
 
@@ -63,12 +65,18 @@ function ImageMessageForm() {
 
                 <TextArea onChange={setMessage} value={message} maxLength={50}/>
 
+                <h4 className="upload-label">
+                        2) select your image
+                </h4>
+
                 <label htmlFor="file-upload" className="file-upload-label">
-                        Upload an image:
+                        choose file
                 </label>
 
                 <input
                     type="file"
+                    id="file-upload"
+                    className="file-input"
                     accept=".jpg, .jpeg, .png"
                     onChange={handleImageChange}
                     aria-describedby="file-upload-feedback"
@@ -77,11 +85,12 @@ function ImageMessageForm() {
                     required
                 />
 
-                <button disabled={!previewIsReady} className="button" type="submit">Submit</button>
+                <div className="buttons-form">
+                    <button disabled={!previewIsReady} className="button" type="submit"> Submit <IoIosSend size={19} /></button>
+                    {previewIsReady && <PreviewButton />}
+                </div>
 
             </form>
-
-            {previewIsReady && <PreviewButton />}
 
             {showPreview && (
                 <ModalPortal>
