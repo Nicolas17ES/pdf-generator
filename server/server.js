@@ -3,6 +3,7 @@ const app = express();
 const { resolve } = require("path");
 const env = require("dotenv").config({ path: "./.env" });
 const multer = require('multer');
+const { errorHandler } = require('./middleware/errorMiddleware.js'); 
 
 const PORT = process.env.PORT || 5252
 
@@ -36,5 +37,7 @@ app.get("/", (req, res) => {
     res.sendFile(path);
 });
 
+// Use the errorHandler middleware
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`server started on port ${PORT}`));

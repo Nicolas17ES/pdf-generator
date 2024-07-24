@@ -19,6 +19,11 @@ const uploadReducer = (state, action) => {
                 ...state,
                 isPDFReady: action.payload,
             }
+        case 'SET_SHOW_PREVIEW':
+            return {
+                ...state,
+                showPreview: action.payload,
+            }
 
         case 'RESET_STATE':
             return {

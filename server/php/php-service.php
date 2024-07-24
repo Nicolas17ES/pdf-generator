@@ -20,22 +20,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!in_array($imageExtension, $validExtensions)) {
             header("HTTP/1.1 400 Bad Request");
             echo 'Unsupported image type';
+            logError('Unsupported image type: ' . $imageExtension);
             exit;
         }
-
-        // Initialize FPDF
-        $pdf = new FPDF();
-        $pdf->AddPage();
-        $pdf->SetFont('Arial', 'B', 16);
-        $pdf->Cell(40, 10, $message);
-        $pdf->Ln();
 
         // Get the temporary file path
         $imagePath = $image['tmp_name'];
 
-        // Output the PDF directly
-        $pdf->Image($imagePath, 10, 20, 50, 50, $imageExtension);
-        $pdf->Output('D', 'generated.pdf');
+        // Ensure the temporary file exists
+        if (!file_exists($imagePath)) {
+            header("HTTP/1.1 500 Internal Server Error");
+            echo 'Uploaded file not found';
+            logError('Uploaded file not found: ' . $imagePath);
+            exit;
+        }
+
+        try {
+            // Initialize FPDF
+            $pdf = new FPDF();
+            $pdf->AddPage();
+            $pdf->SetFont('Arial', 'B', 16);
+            $pdf->Cell(40, 10, $message);
+            $pdf->Ln();
+
+            // Output the PDF directly
+            $pdf->Image($imagePath, 10, 20, 50, 50, $imageExtension);
+            $pdf->Output('D', 'generated.pdf');
+
+        } catch (Exception $e) {
+
+            header("HTTP/1.1 500 Internal Server Error");
+            echo 'Error generating PDF: ' . $e->getMessage();
+            logError('Error generating PDF: ' . $e->getMessage());
+            exit;
+            
+        }
+
     } else {
         // Handle file upload error
         header("HTTP/1.1 400 Bad Request");

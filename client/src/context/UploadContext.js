@@ -7,6 +7,7 @@ const UploadContext = createContext();
 
 export const initialState = {
     isPDFReady: false,
+    showPreview: false,
 }
 
 export const UploadProvider = ({ children }) => {
@@ -16,6 +17,7 @@ export const UploadProvider = ({ children }) => {
 
     return <UploadContext.Provider value={{
         isPDFReady: state.isPDFReady,
+        showPreview: state.showPreview,
         dispatch,
     }}>
         {children}

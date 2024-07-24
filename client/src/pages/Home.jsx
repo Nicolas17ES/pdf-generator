@@ -18,23 +18,23 @@ function Home() {
 
     return (
 
-        <div className="home-container">
+        <div className="page-container">
             <header className="home-header">
-                <h1 className="home-title">PDF Generator</h1>
-                <p className="home-description">
-                    Upload a message and an image to generate a PDF file. Preview the content before downloading.
-                </p>
+                <h1 className="title">PDF Generator</h1>
+                <h2 className="subtitle">
+                    Upload a message and an image to generate your PDF file.
+                </h2>
             </header>
             {!isFormVisible && 
                 <button
                     onClick={() => setIsFormVisible(true)}
-                    className="main-button"
+                    className="main-button button"
                     aria-expanded={isFormVisible}
                 >
                     Get started
                 </button>
             }
-            {isFormVisible && <ImageMessageForm/>}
+            {(isFormVisible && !isPDFReady) && <ImageMessageForm/>}
         </div>
 
     );

@@ -1,5 +1,9 @@
+import { toast } from 'react-toastify';
+
 export const uploadImage = async (dispatch, formData) => {
-    const fileName = formData.get('name') || 'generated';
+    
+    const fileNameWithExtension = formData.get('name') || 'generated';
+    const fileName = fileNameWithExtension.replace(/\.(jpg|jpeg|png)$/i, '');
 
     try {
         const response = await fetch("/pdf/generate", {
@@ -27,7 +31,10 @@ export const uploadImage = async (dispatch, formData) => {
         // Clean up the URL object
         window.URL.revokeObjectURL(link.href);
 
-        dispatch({ type: 'SET_IS_PDF_READY', payload: true })
+        dispatch({ type: 'SET_IS_PDF_READY', payload: true });
+
+        // Redirect to /confirmation
+        window.location.href = '/confirmation'; 
 
     } catch (error) {
         // Error handling

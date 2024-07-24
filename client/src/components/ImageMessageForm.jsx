@@ -3,15 +3,16 @@ import UploadContext from "../context/UploadContext";
 import {uploadImage} from '../context/UploadActions'
 import Preview from './Preview'
 import { toast } from 'react-toastify';
-
+import  ModalPortal from './shared/ModalPortal'
+import PreviewButton from './shared/PreviewButton'
+import TextArea from './shared/TextArea'
 
 function ImageMessageForm() {
 
-    const {dispatch} = useContext(UploadContext);
+    const { dispatch, showPreview} = useContext(UploadContext);
 
     const [message, setMessage] = useState('');
     const [image, setImage] = useState(null);
-    const [showPreview, setShowPreview] = useState(false);
     const [blob, setBlob] = useState(null);
     const [previewIsReady, setPreviewIsReady] = useState(false);
 
@@ -50,7 +51,7 @@ function ImageMessageForm() {
         const formData = new FormData();
         formData.append('message', message);
         formData.append('image', image);
-        formData.append('name', image.originalname);
+        formData.append('name', image.name);
         uploadImage(dispatch, formData)
     };
 
@@ -58,24 +59,14 @@ function ImageMessageForm() {
     return (
 
         <>
-            <form onSubmit={handleSubmit}>
-                <textarea
-                    value={message}
-                    onChange={(e) => {
-                        if (e.target.value.length <= 50) {
-                            setMessage(e.target.value);
-                        } else {
-                            toast.error('Message cannot exceed 50 characters.');
-                        }
-                    }}
-                    placeholder="Enter your text"
-                    name="message"
-                    maxLength="50"
-                    required
-                />
+            <form className="form-container" onSubmit={handleSubmit}>
+
+                <TextArea onChange={setMessage} value={message} maxLength={50}/>
+
                 <label htmlFor="file-upload" className="file-upload-label">
                         Upload an image:
                 </label>
+
                 <input
                     type="file"
                     accept=".jpg, .jpeg, .png"
@@ -85,10 +76,18 @@ function ImageMessageForm() {
                     multiple={false}
                     required
                 />
+
                 <button disabled={!previewIsReady} className="button" type="submit">Submit</button>
+
             </form>
-            <button onClick={() => setShowPreview(true)} disabled={!previewIsReady} className="button">Preview</button>
-            {showPreview && <Preview message={message} image={blob} /> }
+
+            {previewIsReady && <PreviewButton />}
+
+            {showPreview && (
+                <ModalPortal>
+                    <Preview message={message} image={blob} />
+                </ModalPortal>
+            )}
         </>
 
     );
