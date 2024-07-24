@@ -6,7 +6,7 @@ import uploadReducer from './UploadReducer'
 const UploadContext = createContext();
 
 export const initialState = {
-    image: {},
+    isPDFReady: false,
 }
 
 export const UploadProvider = ({ children }) => {
@@ -15,7 +15,7 @@ export const UploadProvider = ({ children }) => {
     const [state, dispatch] = useReducer(uploadReducer, initialState)
 
     return <UploadContext.Provider value={{
-        image: state.formData,
+        isPDFReady: state.isPDFReady,
         dispatch,
     }}>
         {children}

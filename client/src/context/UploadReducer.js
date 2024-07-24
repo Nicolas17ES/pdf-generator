@@ -14,10 +14,10 @@ import { initialState } from "./UploadContext"
 
 const uploadReducer = (state, action) => {
     switch (action.type) {
-        case 'SET_IMAGE':
+        case 'SET_IS_PDF_READY':
             return {
                 ...state,
-                image: action.payload,
+                isPDFReady: action.payload,
             }
 
         case 'RESET_STATE':

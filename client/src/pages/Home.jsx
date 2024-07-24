@@ -1,11 +1,19 @@
 import { useState, useContext } from "react";
 import UploadContext from "../context/UploadContext";
 import ImageMessageForm from '../components/ImageMessageForm'
+import { useEffect } from "react";
+import { toast } from 'react-toastify';
 
 function Home() {
 
-    const { } = useContext(UploadContext);
+    const { isPDFReady } = useContext(UploadContext);
     const [isFormVisible, setIsFormVisible] = useState(false);
+
+    useEffect(() => {
+        if (isPDFReady) {
+            toast.success('PDF has been downloaded.');
+        }
+    }, [isPDFReady])
 
 
     return (

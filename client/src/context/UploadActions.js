@@ -21,6 +21,8 @@ export const uploadImage = async (dispatch, formData) => {
         // Clean up the URL object
         window.URL.revokeObjectURL(link.href);
 
+        dispatch({ type: 'SET_IS_PDF_READY', payload: true })
+
     } catch (error) {
         console.error("Error generating PDF user:", error);
     }

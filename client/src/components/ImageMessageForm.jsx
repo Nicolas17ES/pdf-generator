@@ -2,6 +2,9 @@ import { useState, useContext } from "react";
 import UploadContext from "../context/UploadContext";
 import {uploadImage} from '../context/UploadActions'
 import Preview from './Preview'
+import { toast } from 'react-toastify';
+
+
 function ImageMessageForm() {
 
     const {dispatch} = useContext(UploadContext);
@@ -11,21 +14,35 @@ function ImageMessageForm() {
     const [showPreview, setShowPreview] = useState(false);
     const [blob, setBlob] = useState(null);
     const [previewIsReady, setPreviewIsReady] = useState(false);
-    const [feedback, setFeedback] = useState('');
+
 
     const handleImageChange = (e) => {
-        const file = e.target.files[0];
+        const files = e.target.files;
+
+        if (files.length > 1) {
+            toast.error('Please select only one file.');
+            e.target.value = null; // Clear the file input
+            return;
+        }
+
+        const files = files[0];
+
         setImage(file);
+
         const reader = new FileReader();
+
         reader.onloadend = () => {
+            toast.info('Image ready for preview');
             setBlob(reader.result);
             setPreviewIsReady(true);
-            setFeedback('Image ready for preview.');
         };
+
         reader.onerror = () => {
-            setFeedback('Error loading image. Please try again.');
+            toast.error('Error loading image. Please try again.');
         };
+
         reader.readAsDataURL(file);
+
     };
 
     const handleSubmit = async (e) => {
@@ -43,9 +60,16 @@ function ImageMessageForm() {
             <form onSubmit={handleSubmit}>
                 <textarea
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={(e) => {
+                        if (e.target.value.length <= 50) {
+                            setMessage(e.target.value);
+                        } else {
+                            toast.error('Message cannot exceed 50 characters.');
+                        }
+                    }}
                     placeholder="Enter your text"
                     name="message"
+                    maxLength="50"
                     required
                 />
                 <label htmlFor="file-upload" className="file-upload-label">
@@ -57,12 +81,12 @@ function ImageMessageForm() {
                     onChange={handleImageChange}
                     aria-describedby="file-upload-feedback"
                     name="image"
+                    multiple={false}
                     required
                 />
                 <button disabled={!previewIsReady} className="button" type="submit">Submit</button>
             </form>
             <button onClick={() => setShowPreview(true)} disabled={!previewIsReady} className="button">Preview</button>
-            {previewIsReady && <p id="file-upload-feedback" aria-live="polite">{feedback}</p> }
             {showPreview && <Preview message={message} image={blob} /> }
         </>
 
