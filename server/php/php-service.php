@@ -1,0 +1,46 @@
+<?php
+// Include the FPDF library
+require('fpdf186/fpdf.php');
+
+// Only proceed if the request method is POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ensure the image file is uploaded correctly
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        // Retrieve form data
+        $message = $_POST['message'];
+        $image = $_FILES['image'];
+
+        // Get the image file extension
+        $imageExtension = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+
+        // Valid extensions for image types
+        $validExtensions = ['jpg', 'jpeg', 'png'];
+        
+        // Check if the image extension is valid
+        if (!in_array($imageExtension, $validExtensions)) {
+            header("HTTP/1.1 400 Bad Request");
+            echo 'Unsupported image type';
+            exit;
+        }
+
+        // Initialize FPDF
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(40, 10, $message);
+        $pdf->Ln();
+
+        // Get the temporary file path
+        $imagePath = $image['tmp_name'];
+
+        // Output the PDF directly
+        $pdf->Image($imagePath, 10, 20, 50, 50, $imageExtension);
+        $pdf->Output('D', 'generated.pdf');
+    } else {
+        // Handle file upload error
+        header("HTTP/1.1 400 Bad Request");
+        echo 'File upload error: ' . $_FILES['image']['error'];
+    }
+}
+?>
+
