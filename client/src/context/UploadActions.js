@@ -1,4 +1,6 @@
 export const uploadImage = async (dispatch, formData) => {
+    const fileName = formData.get('name') || 'generated';
+
     try {
         const response = await fetch("/pdf/generate", {
             method: "POST",
@@ -6,7 +8,11 @@ export const uploadImage = async (dispatch, formData) => {
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            // Check if the response has a JSON body
+            const errorResponse = await response.json();
+            const errorMessage = errorResponse.error || 'An unknown error occurred';
+            toast.error(`Error: ${errorMessage}`);
+            throw new Error(`HTTP error! status: ${response.status} - ${errorMessage}`);
         }
 
         // Get the response as a Blob (binary data)
@@ -15,7 +21,7 @@ export const uploadImage = async (dispatch, formData) => {
         // Create a URL for the Blob and trigger a download
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.download = 'generated.pdf'; // Filename for the downloaded PDF
+        link.download = `${fileName}.pdf`; // Filename for the downloaded PDF
         link.click();
 
         // Clean up the URL object
@@ -24,6 +30,8 @@ export const uploadImage = async (dispatch, formData) => {
         dispatch({ type: 'SET_IS_PDF_READY', payload: true })
 
     } catch (error) {
-        console.error("Error generating PDF user:", error);
+        // Error handling
+        const errorMessage = error.response?.data?.error || 'An unknown error occurred';
+        toast.error(`Error: ${errorMessage}`);
     }
 };

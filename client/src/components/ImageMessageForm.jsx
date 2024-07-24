@@ -25,7 +25,7 @@ function ImageMessageForm() {
             return;
         }
 
-        const files = files[0];
+        const file = files[0];
 
         setImage(file);
 
@@ -50,6 +50,7 @@ function ImageMessageForm() {
         const formData = new FormData();
         formData.append('message', message);
         formData.append('image', image);
+        formData.append('name', image.originalname);
         uploadImage(dispatch, formData)
     };
 
@@ -77,7 +78,7 @@ function ImageMessageForm() {
                 </label>
                 <input
                     type="file"
-                    accept="image/*"
+                    accept=".jpg, .jpeg, .png"
                     onChange={handleImageChange}
                     aria-describedby="file-upload-feedback"
                     name="image"
