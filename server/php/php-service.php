@@ -7,7 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ensure the image file is uploaded correctly
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         // Retrieve form data
-        $message = $_POST['message'];
         $image = $_FILES['image'];
 
         // Get the image file extension
@@ -39,8 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Initialize FPDF
             $pdf = new FPDF();
             $pdf->AddPage();
-            $pdf->SetFont('Arial', 'B', 16);
-            $pdf->Cell(40, 10, $message);
             $pdf->Ln();
 
             // Output the PDF directly

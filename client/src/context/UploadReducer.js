@@ -24,6 +24,11 @@ const uploadReducer = (state, action) => {
                 ...state,
                 showPreview: action.payload,
             }
+        case 'SET_SELECTED_IMAGE':
+            return {
+                ...state,
+                selectedImage: action.payload,
+            }
 
         case 'RESET_STATE':
             return {

@@ -4,24 +4,18 @@ const axios = require('axios');
 
 
 const generatePdfFromImage = asyncHandler(async (req, res) => {
-
-    const { message } = req.body;
     const { buffer, originalname, mimetype } = req.file;
 
-    if (!message || !req.file) {
-        return res.status(400).json({ error: 'Message and image are required.' });
+    if (!req.file) {
+        return res.status(400).json({ error: 'Missage is required.' });
     }
 
-    if (typeof message !== 'string' || message.trim() === '') {
-        return res.status(400).json({ error: 'Message cannot be empty.' });
-    }
 
     if (!['image/jpeg', 'image/png', 'image/jpg'].includes(mimetype)) {
         return res.status(400).json({ error: 'Only JPEG and PNG images are valid.' });
     }
 
     const formData = new FormData();
-    formData.append('message', message);
     formData.append('image', buffer, { filename: originalname, contentType: mimetype });
 
     try {

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import UploadContext from "../../context/UploadContext";
 import { MdOutlinePreview } from "react-icons/md";
 import { FaWindowClose } from "react-icons/fa";
@@ -16,7 +16,7 @@ const PreviewButton = () => {
         })
     }
 
-    const buttonStyle = showPreview ? { position: 'absolute', top: '10px', right: '10px' , zIndex: 999} : {};
+    const buttonStyle = showPreview ? { position: 'absolute', top: '10px', right: '10px' , zIndex: 999, backgroundColor: 'transparent'} : {};
 
     return (
 

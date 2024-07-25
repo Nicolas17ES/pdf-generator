@@ -1,5 +1,3 @@
-import { useState, useContext } from "react";
-import UploadContext from "../../context/UploadContext";
 import { toast } from 'react-toastify';
 
 const TextArea = ({ value, onChange, maxLength}) => {
