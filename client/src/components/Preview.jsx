@@ -86,11 +86,11 @@ const Preview = ({ message, image, name, type }) => {
                     type: 'SET_SELECTED_IMAGE',
                     payload: file,
                 });
-                
+
                 dispatch({
                     type: 'SET_SHOW_PREVIEW',
                     payload: false
-                })
+                });
 
                 // You can now send `dataURL` to the backend or do other operations with it
             } catch (error) {

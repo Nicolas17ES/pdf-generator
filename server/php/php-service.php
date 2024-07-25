@@ -40,11 +40,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdf->AddPage();
             $pdf->Ln();
 
+            // Set the width and height for the image
+            $width = 160; // Set the width to a larger value
+            $height = 160; // Set the height to a larger value
+
+            // Get the width of the page
+            $pageWidth = $pdf->GetPageWidth();
+
+            // Calculate X position to center the image
+            $x = ($pageWidth - $width) / 2;
+
             // Output the PDF directly
-            $pdf->Image($imagePath, 10, 20, 50, 50, $imageExtension);
+            $pdf->Image($imagePath, $x, 20, $width, $height, $imageExtension);
+
+
+            // Set font for the text
+            $pdf->SetFont('Arial', 'B', 16);
+
+            // Set the text
+            $text = "Thank you for using mesplaques. See you soon!";
+
+            // Get the width of the text
+            $textWidth = $pdf->GetStringWidth($text);
+
+            // Calculate X position to center the text
+            $textX = ($pageWidth - $textWidth) / 2;
+
+            // Calculate Y position for the text (below the image)
+            $textY = 20 + $height + 10; // 20 units from the top + image height + some padding
+
+            // Ensure the text doesn't go beyond the page height
+            $pageHeight = $pdf->GetPageHeight();
+            if ($textY + 10 > $pageHeight) {
+                $textY = $pageHeight - 20; // Adjust to fit within the page
+            }
+
+            // Set the position and add the text
+            $pdf->SetXY($textX, $textY);
+            $pdf->Cell($textWidth, 10, $text, 0, 0, 'C');
+            
             $pdf->Output('D', 'generated.pdf');
 
-        } catch (Exception $e) {
+
+        }  catch (Exception $e) {
 
             header("HTTP/1.1 500 Internal Server Error");
             echo 'Error generating PDF: ' . $e->getMessage();

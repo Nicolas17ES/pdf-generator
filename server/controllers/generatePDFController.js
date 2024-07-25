@@ -10,7 +10,7 @@ const generatePdfFromImage = asyncHandler(async (req, res) => {
         return res.status(400).json({ error: 'Missage is required.' });
     }
 
-
+console.log(req.file)
     if (!['image/jpeg', 'image/png', 'image/jpg'].includes(mimetype)) {
         return res.status(400).json({ error: 'Only JPEG and PNG images are valid.' });
     }
