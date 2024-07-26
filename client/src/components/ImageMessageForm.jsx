@@ -57,7 +57,7 @@ function ImageMessageForm() {
             setPreviewIsReady(false);
         }
     }, []);
-    
+
     return (
         <>
             <form className="form-container" onSubmit={handleSubmit}>
@@ -75,17 +75,12 @@ function ImageMessageForm() {
                     multiple={false}
                     required
                 />
-                <div className="buttons-container">
-                    <button disabled={!previewIsReady} className="button" type="submit">
-                        Submit <IoIosSend size={19} />
-                    </button>
-                    {previewIsReady && <PreviewButton />}
-                </div>
+                {(previewIsReady && message.length > 0) && <PreviewButton />}
             </form>
 
             {showPreview && (
                 <ModalPortal>
-                    <Preview  message={message} image={blob} name={image.name} type={image.type} />
+                    <Preview message={message} image={blob} name={image.name} type={image.type} />
                 </ModalPortal>
             )}
         </>

@@ -31,10 +31,10 @@ export const uploadImage = async (dispatch, formData) => {
         // Clean up the URL object
         window.URL.revokeObjectURL(link.href);
 
-        dispatch({ type: 'SET_IS_PDF_READY', payload: true });
+        // dispatch({ type: 'SET_IS_PDF_READY', payload: true });
 
-        // Redirect to /confirmation
-        window.location.href = '/confirmation'; 
+        // // Redirect to /confirmation
+        // window.location.href = '/confirmation'; 
 
     } catch (error) {
         // Error handling

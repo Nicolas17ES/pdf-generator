@@ -14,7 +14,7 @@
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
+del, dfn, em, font, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, u, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
@@ -54,12 +54,6 @@ button:focus {
     outline: none; /* Remove default focus outline */
 }
 
-/* Images */
-img {
-    max-width: 100%; /* Make images responsive */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Remove bottom space */
-}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
@@ -155,6 +149,11 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 100px;
 }
 
+.button-submit{
+    margin: auto;
+    margin-top: 50px;
+}
+
 .form-container{
     display: flex;
     align-items: center;
@@ -229,7 +228,7 @@ h1, h2, h3, h4, h5, h6 {
    padding: 5px 10px;
    font-size: .8rem;
    transition: all .3s;
-
+   margin-bottom: 50px;
 }
 
 .file-upload-label:hover {
