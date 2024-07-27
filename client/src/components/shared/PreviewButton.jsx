@@ -23,10 +23,12 @@ const PreviewButton = () => {
         <button 
             onClick={togglePreviewState} 
             style={buttonStyle}
-            // disabled={!isPreviewReady} 
-            className="button">
-                {showPreview ? 'Hide' : 'Preview'}
-            {showPreview ? <FaWindowClose /> : <MdOutlinePreview size={19}/>}
+            className="button"
+            aria-expanded={showPreview}
+            aria-label={showPreview ? 'Hide preview' : 'Show preview'}
+        >
+            {showPreview ? 'Hide' : 'Preview'}
+            {showPreview ? <FaWindowClose aria-hidden="true" /> : <MdOutlinePreview size={19} aria-hidden="true" />}
         </button>
     );
 };

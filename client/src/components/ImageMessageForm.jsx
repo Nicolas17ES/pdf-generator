@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import ModalPortal from './shared/ModalPortal';
 import PreviewButton from './shared/PreviewButton';
 import TextArea from './shared/TextArea';
-import { IoIosSend } from "react-icons/io";
 
 function ImageMessageForm() {
     const { dispatch, showPreview, selectedImage } = useContext(UploadContext);
@@ -18,9 +17,17 @@ function ImageMessageForm() {
     const handleImageChange = (e) => {
         const files = e.target.files;
 
+        if (files.length === 0) {
+            // If no file is selected (cancelled file selection)
+            setImage(null);
+            setBlob(null);
+            setPreviewIsReady(false);
+            return;
+        }
+
         if (files.length > 1) {
             toast.error('Please select only one file.');
-            e.target.value = null; // Clear the file input
+            e.target.value = null;
             return;
         }
 
@@ -40,6 +47,7 @@ function ImageMessageForm() {
 
         reader.readAsDataURL(file);
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -75,6 +83,8 @@ function ImageMessageForm() {
                     multiple={false}
                     required
                 />
+                {image && <small className="file-name" id="file-upload-feedback">{image.name}</small>}
+                <hr style={{ marginBottom: '50px' }} />
                 {(previewIsReady && message.length > 0) && <PreviewButton />}
             </form>
 

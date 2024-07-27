@@ -4,14 +4,17 @@ require('fpdf186/fpdf.php');
 
 // Only proceed if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     // Ensure the image file is uploaded correctly
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         // Retrieve form data
         $image = $_FILES['image'];
+        $mimetype = $image['type'];
 
-        // Get the image file extension
-        $imageExtension = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+        // Extract image extension from the mimetype
+        $imageExtension = strtolower(explode('/', $mimetype)[1]);
 
+ 
         // Valid extensions for image types
         $validExtensions = ['jpg', 'jpeg', 'png'];
         
@@ -22,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             logError('Unsupported image type: ' . $imageExtension);
             exit;
         }
+        
 
         // Get the temporary file path
         $imagePath = $image['tmp_name'];
@@ -35,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         try {
+            
             // Initialize FPDF
             $pdf = new FPDF();
             $pdf->AddPage();
@@ -49,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Calculate X position to center the image
             $x = ($pageWidth - $width) / 2;
-
             // Output the PDF directly
             $pdf->Image($imagePath, $x, 20, $width, $height, $imageExtension);
 
@@ -59,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Set the text
             $text = "Thank you for using mesplaques. See you soon!";
-
             // Get the width of the text
             $textWidth = $pdf->GetStringWidth($text);
 

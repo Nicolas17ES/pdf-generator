@@ -194,7 +194,6 @@ h1, h2, h3, h4, h5, h6 {
     resize: vertical; 
     overflow: auto;
     box-sizing: border-box; 
-    margin-bottom: 50px;
 }
 
 .textarea:focus {
@@ -206,6 +205,11 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--grey); 
     font-style: italic;
     font-size: .97rem;
+}
+
+.alert-message{
+    font-size: .8rem;
+    margin-top: 5px;
 }
 
 
@@ -228,7 +232,6 @@ h1, h2, h3, h4, h5, h6 {
    padding: 5px 10px;
    font-size: .8rem;
    transition: all .3s;
-   margin-bottom: 50px;
 }
 
 .file-upload-label:hover {
@@ -244,6 +247,17 @@ h1, h2, h3, h4, h5, h6 {
 .file-upload-label:focus {
     outline: none; /* Remove default outline */
     box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Add shadow for focus */
+}
+
+.file-name {
+    display: block;
+    text-transform: lowercase;
+    margin-top: 5px;
+    color: var(--grey);
+    font-size: 0.75em;
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    max-width: 100%;
 }
 
 
@@ -309,7 +323,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .image-text {
     font-family: "Kanit", sans-serif;
-    font-size: 37px;
+    font-size: 35px;
     font-weight: 600;
     margin: 0;
 }
