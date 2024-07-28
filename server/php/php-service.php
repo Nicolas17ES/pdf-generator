@@ -2,9 +2,14 @@
 // Include the FPDF library
 require('fpdf186/fpdf.php');
 
+// Define the logError function if needed
+function logError($message) {
+    error_log($message);
+}
+
 // Only proceed if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-error_log("This is a log message.");
+
     // Ensure the image file is uploaded correctly
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         // Retrieve form data
@@ -14,10 +19,10 @@ error_log("This is a log message.");
         // Extract image extension from the mimetype
         $imageExtension = strtolower(explode('/', $mimetype)[1]);
 
- 
         // Valid extensions for image types
         $validExtensions = ['png'];
         
+        error_log("FILES Array: " . print_r($_FILES, true));
         // Check if the image extension is valid
         if (!in_array($imageExtension, $validExtensions)) {
             header("HTTP/1.1 400 Bad Request");
@@ -25,7 +30,6 @@ error_log("This is a log message.");
             logError('Unsupported image type: ' . $imageExtension);
             exit;
         }
-        
 
         // Get the temporary file path
         $imagePath = $image['tmp_name'];
@@ -39,7 +43,6 @@ error_log("This is a log message.");
         }
 
         try {
-            
             // Initialize FPDF
             $pdf = new FPDF();
             $pdf->AddPage();
@@ -54,9 +57,9 @@ error_log("This is a log message.");
 
             // Calculate X position to center the image
             $x = ($pageWidth - $width) / 2;
+            
             // Output the PDF directly
             $pdf->Image($imagePath, $x, 20, $width, $height, $imageExtension);
-
 
             // Set font for the text
             $pdf->SetFont('Arial', 'B', 16);
@@ -84,14 +87,13 @@ error_log("This is a log message.");
             
             $pdf->Output('D', 'generated.pdf');
 
-
-        }  catch (Exception $e) {
-
+        } catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
-            echo 'Error generating PDF: ' . $e->getMessage();
-            logError('Error generating PDF: ' . $e->getMessage());
+            error_log('Error generating PDF: ' . $e->getMessage());
+            if ($e->getPrevious()) {
+                error_log('Previous exception: ' . $e->getPrevious()->getMessage());
+            }
             exit;
-            
         }
 
     } else {
