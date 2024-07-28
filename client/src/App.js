@@ -8,6 +8,7 @@ import { UploadProvider } from './context/UploadContext'
 
 
 function App() {
+  
   return (
     <UploadProvider>
       <Navigation/>

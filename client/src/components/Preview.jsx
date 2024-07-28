@@ -6,19 +6,28 @@ import useCaptureImage from "../hooks/useCaptureImage";
 import LoadingIndicator from './shared/LoadingIndicator';
 import SelectImageButton from './shared/SelectImageButton';
 import ImagePreview from './shared/ImagePreview';
+import useLanguageFile from '../hooks/useLanguageFile';
+
 
 const Preview = ({ message, image, name }) => {
 
     const { dispatch } = useContext(UploadContext);
+
+    const content = useLanguageFile('preview');
+
     const imageRefOne = useRef(null);
     const imageRefTwo = useRef(null);
 
     const { dimensionsImageOne, dimensionsImageTwo, aspectRatio, isLoading, handleImageLoad } = useAspectRatio();
     const { capturedImage, handleSubmit, handleSelectImage } = useCaptureImage(dispatch, name);
 
+    if (!content) {
+        return null;
+    }
+
     return (
         <>
-            {aspectRatio > 1 ? <h1 className="title">Select an image</h1> : null}
+            {aspectRatio > 1 ? <h2 className="title">{content.title}</h2> : null}
             <div className="preview-images-container">
                 {isLoading ? <LoadingIndicator /> : null}
                 <section className="image-container" aria-labelledby="image-one-label">
@@ -32,7 +41,7 @@ const Preview = ({ message, image, name }) => {
                         option={'one'}
                     />
                     {aspectRatio > 1 && !capturedImage &&
-                        <SelectImageButton onClick={() => handleSelectImage(1)} text="Option One" aria-label="Select image option one"/>
+                        <SelectImageButton onClick={() => handleSelectImage(1)} text={content.opt_one} aria-label="Select image option one"/>
                     }
                 </section>
 
@@ -47,7 +56,7 @@ const Preview = ({ message, image, name }) => {
                             option={'two'}
                         />
                         {aspectRatio > 1 && !capturedImage &&
-                            <SelectImageButton onClick={() => handleSelectImage(2)} text="Option Two" aria-label="Select image option two"/>
+                            <SelectImageButton onClick={() => handleSelectImage(2)} text={content.opt_two} aria-label="Select image option two"/>
                         }
                     </section>
                 )}
@@ -58,7 +67,7 @@ const Preview = ({ message, image, name }) => {
                     className="button button-submit"
                     aria-label="Submit form"
                 >
-                    Submit <IoIosSend size={19} />
+                    {content.button} <IoIosSend size={19} />
                 </button>
             )}
         </>

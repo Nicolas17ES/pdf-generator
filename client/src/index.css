@@ -76,6 +76,15 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 
+.language-dropdown {
+    margin-left: auto; /* Align to the right if needed */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+}
+
 .page-container{
     padding: 50px 100px;
     display: flex;

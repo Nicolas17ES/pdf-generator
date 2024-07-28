@@ -4,7 +4,7 @@ require('fpdf186/fpdf.php');
 
 // Only proceed if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+error_log("This is a log message.");
     // Ensure the image file is uploaded correctly
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         // Retrieve form data
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
  
         // Valid extensions for image types
-        $validExtensions = ['jpg', 'jpeg', 'png'];
+        $validExtensions = ['png'];
         
         // Check if the image extension is valid
         if (!in_array($imageExtension, $validExtensions)) {

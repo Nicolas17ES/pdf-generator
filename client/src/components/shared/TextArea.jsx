@@ -1,7 +1,9 @@
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
+import useLanguageFile from '../../hooks/useLanguageFile';
 
 const TextArea = ({ value, onChange, maxLength }) => {
+    const content = useLanguageFile('textarea');
     const [alert, setAlert] = useState({ isVisible: false, color: '', message: '' });
     const [text, setText] = useState('');
 
@@ -22,30 +24,34 @@ const TextArea = ({ value, onChange, maxLength }) => {
 
         if (text.length >= maxLength - 6 && text.length < maxLength - 2) {
             alertColor = 'orange';
-            alertMessage = `${maxLength - text.length} characters left`;
+            alertMessage = `${maxLength - text.length} ${content.characters}`;
             isVisible = true;
         } else if (text.length >= maxLength - 2 && text.length < maxLength) {
             alertColor = 'red';
-            alertMessage = `${maxLength - text.length} characters left`;
+            alertMessage = `${maxLength - text.length} ${content.characters}`;
             isVisible = true;
         } else if (text.length === maxLength) {
             alertColor = 'red';
-            alertMessage = 'No more characters allowed';
+            alertMessage = content.allowed;
             isVisible = true;
         }
         setAlert({ isVisible, color: alertColor, message: alertMessage });
     }, [text, maxLength]);
 
+    if (!content) {
+        return null;
+    }
+
     return (
         <>
             <label htmlFor="textarea" className="upload-label">
-                1) Add your text
+                {content.label}
             </label>
             <textarea
                 className="textarea"
                 value={value}
                 onChange={handleChange}
-                placeholder="Text goes here..."
+                placeholder={content.placeholder}
                 name="message"
                 maxLength={maxLength}
                 aria-describedby="character-count"

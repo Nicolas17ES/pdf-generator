@@ -2,11 +2,13 @@ import { useContext } from "react";
 import UploadContext from "../../context/UploadContext";
 import { MdOutlinePreview } from "react-icons/md";
 import { FaWindowClose } from "react-icons/fa";
-
+import useLanguageFile from '../../hooks/useLanguageFile';
 
 const PreviewButton = () => {
 
     const { dispatch, showPreview } = useContext(UploadContext);
+
+    const content = useLanguageFile('previewButton');
 
     const togglePreviewState = (e) => {
         e.preventDefault();
@@ -18,6 +20,10 @@ const PreviewButton = () => {
 
     const buttonStyle = showPreview ? { position: 'absolute', top: '10px', right: '10px' , zIndex: 999, backgroundColor: 'transparent'} : {};
 
+    if (!content) {
+        return null;
+    }
+
     return (
 
         <button 
@@ -25,9 +31,9 @@ const PreviewButton = () => {
             style={buttonStyle}
             className="button"
             aria-expanded={showPreview}
-            aria-label={showPreview ? 'Hide preview' : 'Show preview'}
+            aria-label={showPreview ? content.hide : content.show}
         >
-            {showPreview ? 'Hide' : 'Preview'}
+            {showPreview ? content.hide : content.show}
             {showPreview ? <FaWindowClose aria-hidden="true" /> : <MdOutlinePreview size={19} aria-hidden="true" />}
         </button>
     );

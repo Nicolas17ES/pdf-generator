@@ -3,12 +3,14 @@ import UploadContext from "../context/UploadContext";
 import ImageMessageForm from '../components/ImageMessageForm'
 import { useEffect } from "react";
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
-
+import { useNavigate } from 'react-router-dom'; 
+import useLanguageFile from '../hooks/useLanguageFile';
 
 function Home() {
 
     const { isPDFReady } = useContext(UploadContext);
+
+    const content = useLanguageFile('home');
 
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -16,19 +18,22 @@ function Home() {
 
     useEffect(() => {
         if (isPDFReady) {
-            toast.success('PDF has been downloaded.');
+            toast.success(content.toast);
             navigate('/confirmation');  
         }
     }, [isPDFReady])
 
+    if (!content) {
+        return null;
+    }
 
     return (
 
         <div className="page-container">
             <header className="home-header">
-                <h1 className="title">PDF Generator</h1>
+            <h1 className="title">{content.title}</h1>
                 <h2 className="subtitle">
-                    Upload a message and an image to generate your PDF file.
+                    {content.subtitle}
                 </h2>
             </header>
             {!isFormVisible && 
@@ -39,7 +44,7 @@ function Home() {
                     aria-controls="image-message-form"
                     aria-label="Start the process of generating a PDF"
                 >
-                    Get started
+                    {content.start}
                 </button>
             }
             {(isFormVisible && !isPDFReady) && <ImageMessageForm/>}

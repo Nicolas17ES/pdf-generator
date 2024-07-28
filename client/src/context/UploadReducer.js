@@ -29,10 +29,16 @@ const uploadReducer = (state, action) => {
                 ...state,
                 selectedImage: action.payload,
             }
+        case 'SET_LANGUAGE':
+            return {
+                ...state,
+                language: action.payload,
+            }
 
         case 'RESET_STATE':
             return {
                 ...initialState,
+                language: state.language, // Preserve the current language state
             };
 
         default:

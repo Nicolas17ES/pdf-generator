@@ -3,13 +3,12 @@ const FormData = require('form-data');
 const axios = require('axios');
 
 const generatePdfFromImage = asyncHandler(async (req, res) => {
-    const { buffer, originalname, mimetype } = req.file;
-    console.log(req.file);
-    console.log(mimetype);
 
     if (!req.file) {
         return res.status(400).json({ error: 'Image file is required.' });
     }
+
+    const { buffer, originalname, mimetype } = req.file;
 
     if (!['image/jpeg', 'image/png', 'image/jpg'].includes(mimetype)) {
         return res.status(400).json({ error: 'Only JPEG and PNG images are valid.' });
@@ -32,15 +31,24 @@ const generatePdfFromImage = asyncHandler(async (req, res) => {
         }
 
     } catch (error) {
-        console.error('Error calling PHP service:', error);
+        console.error('Error calling PHP service:', {
+            message: error.message,
+            stack: error.stack,
+            response: error.response ? {
+                status: error.response.status,
+                data: error.response.data
+            } : undefined,
+            request: error.request ? {
+                data: error.request.data,
+                headers: error.request.headers
+            } : undefined
+        });
+
         if (error.response) {
-            // Server responded with a status other than 2xx
             res.status(error.response.status).json({ error: error.response.data });
         } else if (error.request) {
-            // No response was received from the server
             res.status(500).json({ error: 'No response received from the PHP service.' });
         } else {
-            // Other errors
             res.status(500).json({ error: 'An error occurred: ' + error.message });
         }
     }

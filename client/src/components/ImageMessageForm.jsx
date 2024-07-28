@@ -6,9 +6,13 @@ import { toast } from 'react-toastify';
 import ModalPortal from './shared/ModalPortal';
 import PreviewButton from './shared/PreviewButton';
 import TextArea from './shared/TextArea';
+import useLanguageFile from '../hooks/useLanguageFile';
 
 function ImageMessageForm() {
     const { dispatch, showPreview, selectedImage } = useContext(UploadContext);
+
+    const content = useLanguageFile('imagemessage');
+
     const [message, setMessage] = useState('');
     const [image, setImage] = useState(null);
     const [blob, setBlob] = useState(null);
@@ -26,7 +30,7 @@ function ImageMessageForm() {
         }
 
         if (files.length > 1) {
-            toast.error('Please select only one file.');
+            toast.error(content.toastone);
             e.target.value = null;
             return;
         }
@@ -42,7 +46,7 @@ function ImageMessageForm() {
         };
 
         reader.onerror = () => {
-            toast.error('Error loading image. Please try again.');
+            toast.error(content.toasttwo);
         };
 
         reader.readAsDataURL(file);
@@ -66,12 +70,16 @@ function ImageMessageForm() {
         }
     }, []);
 
+    if (!content) {
+        return null;
+    }
+
     return (
         <>
             <form className="form-container" onSubmit={handleSubmit}>
                 <TextArea onChange={setMessage} value={message} maxLength={25} />
-                <h4 className="upload-label">2) select your image</h4>
-                <label htmlFor="file-upload" className="file-upload-label">choose file</label>
+                <h4 className="upload-label">{content.title}</h4>
+                <label htmlFor="file-upload" className="file-upload-label">{content.label}</label>
                 <input
                     type="file"
                     id="file-upload"

@@ -9,6 +9,7 @@ export const initialState = {
     isPDFReady: false,
     showPreview: false,
     selectedImage: null,
+    language: 'en',
 }
 
 export const UploadProvider = ({ children }) => {
@@ -20,6 +21,7 @@ export const UploadProvider = ({ children }) => {
         isPDFReady: state.isPDFReady,
         showPreview: state.showPreview,
         selectedImage: state.selectedImage,
+        language: state.language,
         dispatch,
     }}>
         {children}
