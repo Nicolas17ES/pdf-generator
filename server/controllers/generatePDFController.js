@@ -3,6 +3,7 @@ const FormData = require('form-data');
 const axios = require('axios');
 
 const generatePdfFromImage = asyncHandler(async (req, res) => {
+    console.log('heya', req.file)
     if (!req.file) {
         return res.status(400).json({ error: 'Image file is required.' });
     }
@@ -21,7 +22,7 @@ const generatePdfFromImage = asyncHandler(async (req, res) => {
             headers: formData.getHeaders(),
             responseType: 'arraybuffer',
         });
-        console.log("status", response.status)
+        console.log("staaskdjaskldjksldjlkdtus")
 
         if (response.status === 200) {
             res.set('Content-Type', 'application/pdf');

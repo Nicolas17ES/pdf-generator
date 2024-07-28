@@ -53,13 +53,13 @@ function ImageMessageForm() {
     };
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('image', selectedImage);
-        formData.append('name', image.name);
-        uploadImage(dispatch, formData);
-    };
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData();
+    //     formData.append('image', selectedImage);
+    //     formData.append('name', image.name);
+    //     uploadImage(dispatch, formData);
+    // };
 
     useEffect(() => {
         return () => {
@@ -76,7 +76,7 @@ function ImageMessageForm() {
 
     return (
         <>
-            <form className="form-container" onSubmit={handleSubmit}>
+            <form className="form-container">
                 <TextArea onChange={setMessage} value={message} maxLength={25} />
                 <h4 className="upload-label">{content.title}</h4>
                 <label htmlFor="file-upload" className="file-upload-label">{content.label}</label>

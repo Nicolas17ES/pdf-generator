@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Valid extensions for image types
         $validExtensions = ['png'];
         
-        error_log("FILES Array: " . print_r($_FILES, true));
         // Check if the image extension is valid
         if (!in_array($imageExtension, $validExtensions)) {
             header("HTTP/1.1 400 Bad Request");

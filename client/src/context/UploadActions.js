@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify';
 
 export const uploadImage = async (dispatch, formData) => {
-    
+
     const fileNameWithExtension = formData.get('name') || 'generated';
     const fileName = fileNameWithExtension.replace(/\.(jpg|jpeg|png)$/i, '');
-
+    
     try {
         const response = await fetch("/pdf/generate", {
             method: "POST",
