@@ -337,5 +337,103 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+@media(max-width: 1000px) {
+    .preview-images-container {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+}
+@media(max-width: 700px) {
+
+
+    .navbar-container{
+        height: 50px;
+        padding: 10px 30px;
+    }
+
+    .logo{
+        height: 35px;
+        padding-bottom: 2px;
+    }
+
+    .language-dropdown {
+        padding: 3px;
+        border-radius: 2px;
+        font-size: 12px;
+    }
+
+    .page-container{
+        padding: 30px 30px;
+    }
+
+    .title{
+        margin-bottom: 10px;
+        font-size: 25px;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        margin-top: 20px;
+    }
+
+    .button{
+        gap: 5px;
+        width: 150px;
+        height: 35px;
+        padding: 0 18px;
+        font-size: .85rem;
+    }
+
+    .form-container {
+        padding: 10px;
+        width: 310px;
+        margin-top: 70px;
+    }
+
+
+    .upload-label{
+        font-size: 1rem;
+    }
+
+    .textarea {
+        width: 100%;
+        max-width: 250px;
+        height: 35px; 
+        padding: 5px; 
+        font-size: .85rem;  
+    }
+
+    .textarea::placeholder {
+        font-size: .85rem;
+    }
+
+    .alert-message{
+        font-size: .75rem;
+    }
+    .file-upload-label{
+        padding: 4px 8px;
+        font-size: .75rem;
+    }
+
+    .file-name {
+        font-size: 0.6em;
+        max-width: 90%;
+    }
+
+/* PREVIEW */
+
+.preview-container {
+    width: 300px;
+    height: 300px;
+}
+
+.image-text {
+    font-size: 20px;
+}
+
+
+}
+
 
 

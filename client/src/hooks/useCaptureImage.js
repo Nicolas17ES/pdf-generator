@@ -28,7 +28,6 @@ const useCaptureImage = (dispatch, name) => {
                     formData.append('name', name);
 
                     uploadImage(dispatch, formData);
-                    dispatch({ type: 'SET_SHOW_PREVIEW', payload: false });
                 }
 
             } catch (error) {

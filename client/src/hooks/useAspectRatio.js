@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
 const useAspectRatio = () => {
+
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [aspectRatio, setAspectRatio] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [dimensionsImageOne, setDimensionsImageOne] = useState({ imageHeight: 0, imageWidth: 0, textHeight: 100 });
@@ -16,10 +18,24 @@ const useAspectRatio = () => {
         }
     };
 
+    const updateScreenWidth = () => {
+        setScreenWidth(window.innerWidth);
+    };
+
     useEffect(() => {
+        window.addEventListener('resize', updateScreenWidth);
+        return () => {
+            window.removeEventListener('resize', updateScreenWidth);
+        };
+    }, []);
+
+
+    useEffect(() => {
+
         if (aspectRatio !== null) {
-            const containerSize = 500;
-            const minTextHeight = 80;
+
+            const containerSize = screenWidth < 600 ? 300 : 500;
+            const minTextHeight = screenWidth < 600 ? 50 : 80;
 
             let adjustedImageHeightOptionOne, adjustedImageWidthOptionOne;
             let adjustedImageWidthOptionTwo, adjustedImageHeightOptionTwo;
@@ -58,7 +74,7 @@ const useAspectRatio = () => {
             }
 
         }
-    }, [aspectRatio]);
+    }, [aspectRatio, screenWidth]);
 
     return { dimensionsImageOne, dimensionsImageTwo, aspectRatio, isLoading, handleImageLoad };
 };

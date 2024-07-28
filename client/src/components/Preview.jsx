@@ -7,6 +7,7 @@ import LoadingIndicator from './shared/LoadingIndicator';
 import SelectImageButton from './shared/SelectImageButton';
 import ImagePreview from './shared/ImagePreview';
 import useLanguageFile from '../hooks/useLanguageFile';
+import useScreenWidth from '../hooks/useScreenWidth';
 
 
 const Preview = ({ message, image, name }) => {
@@ -14,6 +15,7 @@ const Preview = ({ message, image, name }) => {
     const { dispatch } = useContext(UploadContext);
 
     const content = useLanguageFile('preview');
+    const screenWidth = useScreenWidth();
 
     const imageRefOne = useRef(null);
     const imageRefTwo = useRef(null);
@@ -40,12 +42,12 @@ const Preview = ({ message, image, name }) => {
                         onLoad={() => handleImageLoad(imageRefOne)}
                         option={'one'}
                     />
-                    {aspectRatio > 1 && !capturedImage &&
+                    {(aspectRatio > 1 && !capturedImage && screenWidth > 1000) &&
                         <SelectImageButton onClick={() => handleSelectImage(1)} text={content.opt_one} aria-label="Select image option one"/>
                     }
                 </section>
 
-                {aspectRatio > 1 && (
+                {(aspectRatio > 1 && screenWidth > 1000) && (
                     <section className="image-container" aria-labelledby="image-two-label">
                         <ImagePreview
                             image={image}
@@ -61,7 +63,7 @@ const Preview = ({ message, image, name }) => {
                     </section>
                 )}
             </div>
-            {(aspectRatio <= 1 || (aspectRatio > 1 && capturedImage)) && (
+            {(aspectRatio <= 1 || (aspectRatio > 1 && capturedImage) || screenWidth < 1000) && (
                 <button
                     onClick={handleSubmit}
                     className="button button-submit"
