@@ -56,6 +56,14 @@ const uploadReducer = (state, action) => {
                 displaySpinner: action.payload, 
             };
         /**
+         * @param {Object} action.payload - A boolean indicating whether to display the spinner.
+         */
+        case 'SET_LOADING_MESSAGE':
+            return {
+                ...state, 
+                loadingMessage: action.payload, 
+            };
+        /**
          * @param {Object} state.language - Preserve the current language setting.
          */
         case 'RESET_STATE':

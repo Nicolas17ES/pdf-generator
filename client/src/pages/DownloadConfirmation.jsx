@@ -1,6 +1,6 @@
 import UploadContext from "../context/UploadContext";
 import {useNavigate} from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useContext } from "react";
 import useLanguageFile from '../hooks/useLanguageFile';
 
@@ -37,10 +37,12 @@ function DownloadConfirmation() {
 
     return (
         <>
-            <Helmet>
-                <meta name="description" content="Your PDF has been successfully downloaded. Thank you for using Mesplaques. Would you like to generate another PDF?" />
-                <title>Confirmation</title>
-            </Helmet>
+            <HelmetProvider>
+                <Helmet>
+                    <meta name="description" content="Your PDF has been successfully downloaded. Thank you for using Mesplaques. Would you like to generate another PDF?" />
+                    <title>Confirmation</title>
+                </Helmet>
+            </HelmetProvider>
             <section className="page-container">
                 <h2 className="confirmation-title title">{content.title}</h2>
                 <p className="confirmation-paragraph subtitle">{content.paragraph}</p>

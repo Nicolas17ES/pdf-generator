@@ -13,7 +13,7 @@ import useLanguageFile from '../../hooks/useLanguageFile';
 
 const PreviewButton = () => {
 
-    const { dispatch, showPreview } = useContext(UploadContext);
+    const { dispatch, showPreview, displaySpinner } = useContext(UploadContext);
 
     const content = useLanguageFile('previewButton');
 
@@ -37,6 +37,7 @@ const PreviewButton = () => {
             onClick={togglePreviewState} 
             style={buttonStyle}
             className="button"
+            disabled={displaySpinner}
             aria-expanded={showPreview}
             aria-label={showPreview ? content.hide : content.show}
         >

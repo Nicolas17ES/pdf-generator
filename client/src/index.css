@@ -350,6 +350,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .loadingSpinner {
@@ -359,6 +361,14 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--orange)transparent var(--orange) transparent;
   border-radius: 50%;
   animation: spin 2s linear infinite;
+}
+
+.loadingMessage{
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: "Kanit", sans-serif;
+    font-style: italic;
 }
 
 @keyframes spin {

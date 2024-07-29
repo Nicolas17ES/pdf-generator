@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'; // Import toast for displaying notificat
  * @returns {Promise<void>} - A promise that resolves when the image is successfully uploaded and processed.
  */
 export const uploadImage = async (dispatch, formData) => {
+    dispatch({ type: 'SET_LOADING_MESSAGE', payload: 'Generating PDF...' }); 
     // Extract the file name from FormData and remove any image file extension
     const fileNameWithExtension = formData.get('name') || 'generated'; // Default to 'generated' if no name is provided
     const fileName = fileNameWithExtension.replace(/\.(jpg|jpeg|png)$/i, ''); // Remove image file extensions (jpg, jpeg, png)
@@ -46,6 +47,7 @@ export const uploadImage = async (dispatch, formData) => {
         // Dispatch actions to update the state
         dispatch({ type: 'SET_IS_LOADING', payload: false }); // Hide loading spinner
         dispatch({ type: 'SET_IS_PDF_READY', payload: true }); // Set PDF ready state to true
+        dispatch({ type: 'SET_LOADING_MESSAGE', payload: '' }); 
 
         return
 

@@ -29,8 +29,8 @@ const useCaptureImage = (dispatch, name) => {
      */
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
-
         dispatch({ type: 'SET_IS_LOADING', payload: true }); // Set loading state to true
+        dispatch({ type: 'SET_LOADING_MESSAGE', payload: 'Transforming image...' }); // Set loading state to true
 
         // Select the element to capture, default to .preview-container if no image is selected
         let element = capturedImage ? capturedImage : document.querySelector('.preview-container');
@@ -39,13 +39,12 @@ const useCaptureImage = (dispatch, name) => {
             try {
                 // Capture the element as a PNG image
                 const dataUrl = await htmlToImage.toPng(element, {
-                    backgroundColor: undefined, // Transparent background
-                    width: 500, // Width of the captured image
-                    height: 500, // Height of the captured image
-                    quality: 0.8 // Quality of the captured image (0.0 to 1.0)
+                    backgroundColor: undefined, 
+                    quality: 0.8
                 });
 
                 if (dataUrl) {
+                    console.log(dataUrl)
                     // Convert the data URL to a Blob
                     const response = await fetch(dataUrl);
                     const blob = await response.blob();

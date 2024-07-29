@@ -20,6 +20,7 @@ export const initialState = {
     selectedImage: null, // No image is selected initially
     language: 'en', // Default language is English
     displaySpinner: false, // No spinner is displayed initially
+    loadingMessage: '', // No spinner is displayed initially
 };
 
 /**
@@ -42,6 +43,7 @@ export const UploadProvider = ({ children }) => {
             selectedImage: state.selectedImage, // Pass the selectedImage state
             language: state.language, // Pass the language state
             displaySpinner: state.displaySpinner, // Pass the displaySpinner state
+            loadingMessage: state.loadingMessage, // Pass the displaySpinner state
             dispatch, // Pass the dispatch function for state updates
         }}>
             {children} {/* Render child components */}

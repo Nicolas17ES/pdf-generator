@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'; 
 import useLanguageFile from '../hooks/useLanguageFile';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 /**
  * `Home` page allows users to start the process of generating a custom PDF.
@@ -44,10 +44,12 @@ function Home() {
     return (
 
         <>
-            <Helmet>
-                <meta name="description" content="Generate your custom PDF by uploading a message and an image. Easily create personalized PDF files for various purposes with our PDF Generator."  />
-                <title>Home Page</title>
-            </Helmet>
+            <HelmetProvider>
+                <Helmet>
+                    <meta name="description" content="Generate your custom PDF by uploading a message and an image. Easily create personalized PDF files for various purposes with our PDF Generator."  />
+                    <title>Home Page</title>
+                </Helmet>
+            </HelmetProvider>
 
             <div className="page-container">
                 <header className="home-header">
