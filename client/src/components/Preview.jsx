@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useCallback } from "react";
 import UploadContext from "../context/UploadContext";
 import { IoIosSend } from "react-icons/io";
 import useAspectRatio from "../hooks/useAspectRatio";
@@ -35,8 +35,12 @@ const Preview = ({ message, image, name }) => {
     const imageRefOne = useRef(null);
     const imageRefTwo = useRef(null);
 
-    const { dimensionsImageOne, dimensionsImageTwo, aspectRatio, isLoading, handleImageLoad } = useAspectRatio();
+    const { dimensionsImageOne, dimensionsImageTwo, aspectRatio, isLoading, handleImageLoad: handleImageLoadHook } = useAspectRatio();
     const { capturedImage, handleSubmit, handleSelectImage } = useCaptureImage(dispatch, name);
+
+    const handleImageLoad = useCallback((imageRef) => {
+        handleImageLoadHook(imageRef);
+    }, [handleImageLoadHook]);
 
     if (!content) {
         return null;

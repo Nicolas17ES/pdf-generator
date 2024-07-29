@@ -234,11 +234,10 @@ h1, h2, h3, h4, h5, h6 {
    background-color: var(--grey);
    color: var(--white);
    border-radius: 2px; 
-   width: 130px;
-   height: 20px;
+   width: 150px;
+   height: 30px;
    text-transform: uppercase;
    text-align: center;
-   padding: 5px 10px;
    font-size: .8rem;
    transition: all .3s;
 }
@@ -249,14 +248,7 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
-.file-upload-label:active {
-    background-color: var(--hover-blue); /* Even darker background on click */
-}
 
-.file-upload-label:focus {
-    outline: none; /* Remove default outline */
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Add shadow for focus */
-}
 
 .file-name {
     display: block;
