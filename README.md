@@ -22,12 +22,12 @@ This project was developed with the initiative to treat it as if it were a new f
 
 The project is organized into the following folders:
 
-root/
-├── client/ - Contains the React frontend application.
-├── server/ - Contains the Node.js backend server.
-└── php/ - Contains PHP scripts and folders for PDF generation.
-    ├── php-service.php - Contains PHP server files.
-    └── fpdf/ - Contains fpdf class content to generate PDFs.
+root
+-client: Contains the React frontend application.
+-server: Contains the Node.js backend server and php folder.
+    -php:Contains PHP scripts and folders for PDF generation.
+        -php-service.php: Contains PHP server file.
+        -fpdf: Contains fpdf class content to generate PDFs.
 
 
 ## Installation
@@ -120,9 +120,12 @@ To handle larger file uploads, adjust the PHP configuration settings by editing 
 ```ini
 upload_max_filesize = 5M
 post_max_size = 5M
-
+```
 Restart the PHP server to apply changes:
+
+```ini
 sudo service apache2 restart
+```
 
 
 
