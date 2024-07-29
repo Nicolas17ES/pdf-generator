@@ -1,13 +1,30 @@
 <?php
+
+/**
+ * This PHP script handles image uploads and generates a personalized PDF.
+ * 
+ * It performs the following tasks:
+ * 1. Validates and processes the uploaded PNG image.
+ * 2. Uses the FPDF library to create a PDF with the image centered on the page.
+ * 3. Adds a thank-you message below the image.
+ * 4. Includes error handling and logging for file upload issues and PDF generation errors.
+ * 
+ * Ensure that the FPDF library is correctly included and accessible for the script to function.
+ */
+
 // Include the FPDF library
 require('fpdf186/fpdf.php');
 
-// Define the logError function if needed
+/**
+ * Log error messages to the server's error log.
+ *
+ * @param string $message The error message to log.
+ */
 function logError($message) {
     error_log($message);
 }
 
-// Only proceed if the request method is POST
+// Check reques method, only POST allowed
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Ensure the image file is uploaded correctly
@@ -16,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image = $_FILES['image'];
         $mimetype = $image['type'];
 
-        // Extract image extension from the mimetype
+        // Image extension from the mimetype
         $imageExtension = strtolower(explode('/', $mimetype)[1]);
 
         // Valid extensions for image types
@@ -30,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Get the temporary file path
+        // Get temporary file path
         $imagePath = $image['tmp_name'];
 
         // Ensure the temporary file exists

@@ -39,12 +39,13 @@ const useCaptureImage = (dispatch, name) => {
             try {
                 // Capture the element as a PNG image
                 const dataUrl = await htmlToImage.toPng(element, {
-                    backgroundColor: undefined, 
+                    backgroundColor: undefined,
+                    height: 500,
+                    width: 500,
                     quality: 0.8
                 });
 
                 if (dataUrl) {
-                    console.log(dataUrl)
                     // Convert the data URL to a Blob
                     const response = await fetch(dataUrl);
                     const blob = await response.blob();

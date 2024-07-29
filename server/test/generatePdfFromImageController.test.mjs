@@ -85,7 +85,7 @@ describe('generatePdfFromImage Controller', () => {
         // Assert that the status code 400 was set
         expect(res.status.calledWith(400)).to.be.true;
         // Assert that the appropriate error message was sent
-        expect(res.json.calledWith({ error: 'Only JPEG and PNG images are valid.' })).to.be.true;
+        expect(res.json.calledWith({ error: 'Only PNG images are valid.' })).to.be.true;
     });
 
     /**

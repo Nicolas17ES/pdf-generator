@@ -40,8 +40,6 @@ app.use((req, res, next) => {
 app.use(express.json()); // Parse JSON payloads
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded payloads (without nested objects)
 
-// Serve static files from the directory specified in environment variables
-app.use(express.static(process.env.STATIC_DIR)); // Serve static files from the directory specified by STATIC_DIR
 
 // Configure multer for handling file uploads
 const storage = multer.memoryStorage(); // Store files in memory

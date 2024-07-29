@@ -1,2 +1,0 @@
-[2024-07-26 12:34:25] Error generating PDF: FPDF error: Not a JPEG file: /private/var/folders/f3/2p_jlrtx20nd4nxct2y86bqc0000gn/T/phpiusQ9Y
-[2024-07-26 12:37:39] Error generating PDF: FPDF error: Not a JPEG file: /private/var/folders/f3/2p_jlrtx20nd4nxct2y86bqc0000gn/T/phpVXscUR

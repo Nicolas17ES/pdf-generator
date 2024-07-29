@@ -77,8 +77,11 @@ describe('uploadImage function', () => {
             body: formData,
         });
 
-        // Verify that dispatch was called with the correct action type and payload
+        // Verify that dispatch was called with the correct actions
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_LOADING_MESSAGE', payload: 'Generating PDF...' });
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_LOADING', payload: false });
         expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_PDF_READY', payload: true });
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_LOADING_MESSAGE', payload: '' });
 
         // Verify that createObjectURL and revokeObjectURL were called
         expect(createObjectURL).toHaveBeenCalled();
@@ -112,8 +115,12 @@ describe('uploadImage function', () => {
         // Verify that toast.error was called with the correct error message
         expect(toast.error).toHaveBeenCalledWith('Error: Test error');
 
-        // Verify that dispatch was not called
-        expect(dispatch).not.toHaveBeenCalled();
+        // Verify that dispatch was called with the initial loading message
+        expect(dispatch).toHaveBeenCalledWith({ type: 'SET_LOADING_MESSAGE', payload: 'Generating PDF...' });
+
+        // Verify that dispatch was not called with other actions
+        expect(dispatch).not.toHaveBeenCalledWith({ type: 'SET_IS_LOADING', payload: false });
+        expect(dispatch).not.toHaveBeenCalledWith({ type: 'SET_IS_PDF_READY', payload: true });
+        expect(dispatch).not.toHaveBeenCalledWith({ type: 'SET_LOADING_MESSAGE', payload: '' });
     });
 });
-
