@@ -4,7 +4,15 @@ import DownloadConfirmation from './pages/DownloadConfirmation'
 import Navigation from './components/Navigation'
 import { UploadProvider } from './context/UploadContext'
 
-
+/**
+ * The main application component that sets up routing and context provider.
+ *
+ * - Provides global state management with `UploadProvider`.
+ * - Includes navigation component for site-wide links.
+ * - Sets up routes for Home and DownloadConfirmation pages.
+ *
+ * @returns {JSX.Element} The rendered application component.
+ */
 
 
 function App() {

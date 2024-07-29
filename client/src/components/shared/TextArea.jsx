@@ -2,10 +2,27 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import useLanguageFile from '../../hooks/useLanguageFile';
 
+/**
+ * `TextArea` is a controlled component that renders a textarea with character limit warnings and error messages.
+ *
+ * @param {Object} props - Component props.
+ * @param {string} props.value - The current value of the textarea.
+ * @param {Function} props.onChange - Callback function to handle changes in the textarea.
+ * @param {number} props.maxLength - The maximum number of characters allowed in the textarea.
+ * @returns {JSX.Element} The rendered textarea component.
+ */
+
 const TextArea = ({ value, onChange, maxLength }) => {
     const content = useLanguageFile('textarea');
     const [alert, setAlert] = useState({ isVisible: false, color: '', message: '' });
     const [text, setText] = useState('');
+
+
+    /**
+     * Handles changes to the textarea value.
+     *
+     * @param {React.ChangeEvent<HTMLTextAreaElement>} e - The change event from the textarea.
+     */
 
     const handleChange = (e) => {
         const text = e.target.value;
@@ -18,6 +35,7 @@ const TextArea = ({ value, onChange, maxLength }) => {
     };
 
     useEffect(() => {
+         // Determine the appropriate alert message and style based on text length.
         let alertColor = '';
         let alertMessage = '';
         let isVisible = false;
@@ -36,6 +54,7 @@ const TextArea = ({ value, onChange, maxLength }) => {
             isVisible = true;
         }
         setAlert({ isVisible, color: alertColor, message: alertMessage });
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [text, maxLength]);
 
     if (!content) {

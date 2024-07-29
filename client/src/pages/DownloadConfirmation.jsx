@@ -1,12 +1,21 @@
 import UploadContext from "../context/UploadContext";
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useContext } from "react";
 import useLanguageFile from '../hooks/useLanguageFile';
 
+/**
+ * `DownloadConfirmation` page displays a confirmation message after a PDF is downloaded.
+ *
+ * - Provides options to restart the process or visit the Mes Plaques website.
+ * - Resets application state upon user interaction.
+ *
+ * @returns {JSX.Element} The rendered confirmation page.
+ */
+
 function DownloadConfirmation() {
 
-    const { dispatch, language } = useContext(UploadContext);
+    const { dispatch } = useContext(UploadContext);
 
     const content = useLanguageFile('confirmation');
 

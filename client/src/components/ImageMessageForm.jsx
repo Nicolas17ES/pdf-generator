@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import UploadContext from "../context/UploadContext";
-import { uploadImage } from '../context/UploadActions';
 import Preview from './Preview';
 import { toast } from 'react-toastify';
 import ModalPortal from './shared/ModalPortal';
@@ -8,8 +7,16 @@ import PreviewButton from './shared/PreviewButton';
 import TextArea from './shared/TextArea';
 import useLanguageFile from '../hooks/useLanguageFile';
 
+
+/**
+ * `ImageMessageForm` is a form component that allows users to upload an image and input a message.
+ * It provides a preview of the image and message, and handles file input and validation.
+ *
+ * @returns {JSX.Element} The rendered form component with preview functionality.
+ */
+
 function ImageMessageForm() {
-    const { dispatch, showPreview, selectedImage } = useContext(UploadContext);
+    const { showPreview } = useContext(UploadContext);
 
     const content = useLanguageFile('imagemessage');
 
@@ -17,6 +24,12 @@ function ImageMessageForm() {
     const [image, setImage] = useState(null);
     const [blob, setBlob] = useState(null);
     const [previewIsReady, setPreviewIsReady] = useState(false);
+
+    /**
+     * Handles changes in the file input, including file validation and preview setup.
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e - The change event from the file input.
+     */
 
     const handleImageChange = (e) => {
         const files = e.target.files;
@@ -51,15 +64,6 @@ function ImageMessageForm() {
 
         reader.readAsDataURL(file);
     };
-
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const formData = new FormData();
-    //     formData.append('image', selectedImage);
-    //     formData.append('name', image.name);
-    //     uploadImage(dispatch, formData);
-    // };
 
     useEffect(() => {
         return () => {

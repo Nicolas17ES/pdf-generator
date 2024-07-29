@@ -4,6 +4,13 @@ import { MdOutlinePreview } from "react-icons/md";
 import { FaWindowClose } from "react-icons/fa";
 import useLanguageFile from '../../hooks/useLanguageFile';
 
+/**
+ * `PreviewButton` is a functional React component that provides a button to toggle the visibility of a preview.
+ *
+ * @returns {JSX.Element|null} The rendered button element or null if content is not loaded.
+ */
+
+
 const PreviewButton = () => {
 
     const { dispatch, showPreview } = useContext(UploadContext);

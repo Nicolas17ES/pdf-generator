@@ -7,6 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import useLanguageFile from '../hooks/useLanguageFile';
 import { Helmet } from 'react-helmet';
 
+/**
+ * `Home` page allows users to start the process of generating a custom PDF.
+ *
+ * - Displays a button to start the process, which reveals a form for user input.
+ * - Redirects to a confirmation page and displays a success message when the PDF is ready.
+ *
+ * @returns {JSX.Element} The rendered home page.
+ */
+
 
 function Home() {
 
@@ -24,6 +33,8 @@ function Home() {
             dispatch({ type: 'SET_SHOW_PREVIEW', payload: false });
             toast.success(content.toast);
         }
+
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPDFReady])
 
     if (!content) {

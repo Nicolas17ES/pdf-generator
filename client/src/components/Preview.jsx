@@ -3,16 +3,31 @@ import UploadContext from "../context/UploadContext";
 import { IoIosSend } from "react-icons/io";
 import useAspectRatio from "../hooks/useAspectRatio";
 import useCaptureImage from "../hooks/useCaptureImage";
-import LoadingIndicator from './shared/LoadingIndicator';
 import SelectImageButton from './shared/SelectImageButton';
 import ImagePreview from './shared/ImagePreview';
 import useLanguageFile from '../hooks/useLanguageFile';
 import useScreenWidth from '../hooks/useScreenWidth';
+import Spinner from './shared/Spinner'
 
+/**
+ * `Preview` component renders image previews and a submit button based on aspect ratio and screen width.
+ *
+ * - Displays image previews in different layouts depending on aspect ratio.
+ * - Provides buttons to select images for different preview options.
+ * - Shows a spinner if data is loading.
+ * - Includes a submit button for form submission.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.message - The message to display on the image preview.
+ * @param {string} props.image - The image data URL or file to display in the preview.
+ * @param {string} props.name - The name for the image file.
+ *
+ * @returns {JSX.Element} The rendered preview component.
+ */
 
 const Preview = ({ message, image, name }) => {
 
-    const { dispatch } = useContext(UploadContext);
+    const { dispatch, displaySpinner } = useContext(UploadContext);
 
     const content = useLanguageFile('preview');
     const screenWidth = useScreenWidth();
@@ -27,11 +42,13 @@ const Preview = ({ message, image, name }) => {
         return null;
     }
 
+
+
     return (
         <>
             {aspectRatio > 1 ? <h2 className="title">{content.title}</h2> : null}
+            {displaySpinner && <Spinner />}
             <div className="preview-images-container">
-                {isLoading ? <LoadingIndicator /> : null}
                 <section className="image-container" aria-labelledby="image-one-label">
                     <ImagePreview
                         loadingState={isLoading}
